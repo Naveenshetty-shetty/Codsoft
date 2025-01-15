@@ -1,0 +1,127 @@
+2 ) STUDENT GRADE CALCULATOR
+
+source code import java.util.Scanner;
+
+public class GradeCalculation {
+
+    // Method to take marks input from the user
+    public static int[] getMarks(int numSubjects) {
+        Scanner scanner = new Scanner(System.in);
+        int[] marks = new int[numSubjects];
+
+        // Take input for marks in each subject
+        for (int i = 0; i < numSubjects; i++) {
+            System.out.print("Enter marks for subject " + (i + 1) + ": ");
+            marks[i] = scanner.nextInt();
+        }
+        return marks;
+    }
+
+    // Method to calculate the total marks
+    public static int calculateTotalMarks(int[] marks) {
+        int totalMarks = 0;
+        for (int mark : marks) {
+            totalMarks += mark;
+        }
+        return totalMarks;
+    }
+
+    // Method to calculate the average percentage
+    public static double calculateAveragePercentage(int totalMarks, int numSubjects) {
+        return (totalMarks * 100.0) / (numSubjects * 100);
+    }
+
+    // Method to assign grade based on average percentage
+    public static char assignGrade(double averagePercentage) {
+        if (averagePercentage >= 90) {
+            return 'A';
+        } else if (averagePercentage >= 80) {
+            return 'B';
+        } else if (averagePercentage >= 70) {
+            return 'C';
+        } else if (averagePercentage >= 60) {
+            return 'D';
+        } else {
+            return 'F';
+        }
+    }
+
+    // Method to display the results
+    public static void displayResults(int totalMarks, int numSubjects, double averagePercentage, char grade) {
+        System.out.println("\nResults:");
+        System.out.println("Total Marks: " + totalMarks + "/" + (numSubjects * 100));
+        System.out.println("Average Percentage: " + averagePercentage + "%");
+        System.out.println("Grade: " + grade);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Number of subjects
+        System.out.print("Enter the number of subjects: ");
+        int numSubjects = scanner.nextInt();
+
+        // Get marks input
+        int[] marks = getMarks(numSubjects);
+
+        // Calculate total marks
+        int totalMarks = calculateTotalMarks(marks);
+
+        // Calculate average percentage
+        double averagePercentage = calculateAveragePercentage(totalMarks, numSubjects);
+
+        // Assign grade
+        char grade = assignGrade(averagePercentage);
+
+        // Display results
+        displayResults(totalMarks, numSubjects, averagePercentage, grade);
+
+        // Close the scanner
+        scanner.close();
+    }
+}
+
+Explanation of the Methods:
+getMarks(int numSubjects):
+
+This method takes the number of subjects as input and returns an array of marks entered by the user.
+calculateTotalMarks(int[] marks):
+
+This method takes the marks array and calculates the total marks by summing all the values in the array.
+calculateAveragePercentage(int totalMarks, int numSubjects):
+
+This method calculates the average percentage using the total marks and the number of subjects. The formula used is:
+Average Percentage
+=
+(
+Total Marks
+Number of Subjects
+×
+100
+)
+×
+100
+Average Percentage=( 
+Number of Subjects×100
+Total Marks
+​
+ )×100
+assignGrade(double averagePercentage):
+
+This method assigns a grade based on the calculated average percentage, following the grade rules (A, B, C, D, F).
+displayResults(int totalMarks, int numSubjects, double averagePercentage, char grade):
+
+This method displays the total marks, average percentage, and the grade to the user.
+Example Output:
+yaml
+Copy code
+Enter the number of subjects: 3
+Enter marks for subject 1: 85
+Enter marks for subject 2: 90
+Enter marks for subject 3: 75
+
+Results:
+Total Marks: 250/300
+Average Percentage: 83.33333333333334%
+Grade: B
+
