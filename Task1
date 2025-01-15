@@ -1,0 +1,97 @@
+the Task which is i need to Compalite using java Program 
+Generate a random number within a specified range, such as 1 to 100.
+
+2. Prompt the user to enter their guess for the generated number.
+
+3. Compare the user's guess with the generated number and provide feedback on whether the guess
+is correct, too high, or too low.
+
+4. Repeat steps 2 and 3 until the user guesses the correct number.
+
+You can incorporate additional details as follows:
+
+5. Limit the number of attempts the user has to guess the number.
+6. Add the option for multiple rounds, allowing the user to play again.
+7. Display the user's score, which can be based on the number of attempts taken or rounds won.
+
+Source Code 
+
+import java.util.Scanner;
+import java.util.Random;
+
+public class NumberGuessingGame {
+
+    // Method to play a single round of the game
+    public static int playGame() {
+        Random rand = new Random();
+        int secretNumber = rand.nextInt(100) + 1; // Generate a random number between 1 and 100
+        int attempts = 0;
+        int maxAttempts = 10; // Limit the number of attempts
+
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Welcome to the Number Guessing Game!");
+        System.out.println("Guess the number between 1 and 100. You have " + maxAttempts + " attempts.");
+
+        // Repeat until user guesses correctly or exceeds max attempts
+        while (attempts < maxAttempts) {
+            System.out.print("Enter your guess: ");
+            int guess = scanner.nextInt();
+            attempts++;
+
+            // Compare the guess with the secret number and provide feedback
+            if (guess < secretNumber) {
+                System.out.println("Too low!");
+            } else if (guess > secretNumber) {
+                System.out.println("Too high!");
+            } else {
+                System.out.println("Correct! You guessed the number in " + attempts + " attempts.");
+                return attempts; // Return number of attempts taken to guess correctly
+            }
+        }
+
+        System.out.println("Sorry, you've used all " + maxAttempts + " attempts. The correct number was " + secretNumber + ".");
+        return attempts; // Return the number of attempts even if the user failed
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int totalScore = 0;
+        int rounds = 0;
+
+        // Option for multiple rounds
+        while (true) {
+            rounds++;
+            int attemptsTaken = playGame();
+            
+            // Calculate score based on attempts
+            int score = Math.max(0, 10 - attemptsTaken); // Max score of 10 per round
+            totalScore += score;
+
+            System.out.println("Your score for this round: " + score);
+            System.out.println("Total score after " + rounds + " rounds: " + totalScore);
+
+            // Ask if the player wants to play another round
+            System.out.print("Do you want to play another round? (yes/no): ");
+            String playAgain = scanner.next().trim().toLowerCase();
+            if (!playAgain.equals("yes")) {
+                System.out.println("Thank you for playing! Your final score is " + totalScore + ".");
+                break;
+            }
+        }
+
+        scanner.close();
+    }
+}
+
+
+Explanation of the Example Output:
+Game Start: The user is welcomed and given instructions that the number is between 1 and 100, and they have 10 attempts.
+User Guess: The user enters guesses, receiving feedback each time:
+"Too low!" if the guess is smaller than the secret number.
+"Too high!" if the guess is larger.
+"Correct!" when the player guesses the secret number.
+Score Calculation: After a correct guess, the score is displayed. The score is based on how many attempts it took the user to guess the number correctly. If the user guessed correctly in 3 attempts, their score is 10 - 3 = 7.
+Total Score: The total score accumulates over rounds.
+Play Again: After finishing a round, the player is asked whether they want to play again. If they choose "yes", the game will restart. If they choose "no", the game ends.
+
